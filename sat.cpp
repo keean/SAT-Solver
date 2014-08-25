@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "profile.h"
+#include "Parser-Combinators/profile.hpp"
 #include "Parser-Combinators/parser_simple.hpp"
 
 using namespace std;
@@ -154,6 +154,8 @@ bool verify(vector<vector<int>> const& cnf, int x[]) {
 //----------------------------------------------------------------------------
 // SAT Algorithm A
 
+typedef struct {} sata;
+
 bool sat_a(int const n, vector<vector<int>> const& R) {
     int const m = R.size();
     int const m2 = sum_sizes(R);
@@ -215,7 +217,7 @@ bool sat_a(int const n, vector<vector<int>> const& R) {
     }
 
 A1: // Initialise
-    profile prof;
+    profile<sata> prof;
     int const n2 = (n << 1) + 2;
     int M[n + 1];
     int a = m;
@@ -333,6 +335,8 @@ A8: // Unremove l
 //----------------------------------------------------------------------------
 // SAT Algoritm B
 
+typedef struct {} satb;
+
 bool sat_b(int const n, vector<vector<int>> const& R) {
     int const m = R.size();
     int const m2 = sum_sizes(R);
@@ -365,7 +369,7 @@ bool sat_b(int const n, vector<vector<int>> const& R) {
     }
 
 B1: // Initialise
-    profile prof;
+    profile<satb> prof;
     int M[n + 1];
     int d = 1;
     int l;
@@ -545,7 +549,7 @@ public:
 
     bool operator() () {
     D1: // Initialise
-        profile prof;
+        profile<sat_d> prof;
         int M[n + 1];
         int H[n + 1];
         int NEXT[n + 1];
@@ -1045,7 +1049,7 @@ int main(int const argc, char const *argv[]) {
                         } else {
                             cout << " UNSAT ";
                         }
-                        cout << "in " << profile::report() << "us\n";
+                        cout << "in " << profile<sata>::report() << "us\n";
                         */
                      
                         /*   
@@ -1055,7 +1059,7 @@ int main(int const argc, char const *argv[]) {
                         } else {
                             cout << " UNSAT ";
                         }
-                        cout << "in " << profile::report() << "us\n";
+                        cout << "in " << profile<satb>::report() << "us\n";
                         */
                         
                         {
@@ -1066,7 +1070,7 @@ int main(int const argc, char const *argv[]) {
                             } else {
                                 cout << " UNSAT ";
                             }
-                            cout << "in " << profile::report() << "us\n";
+                            cout << "in " << profile<sat_d>::report() << "us\n";
                         }
 
                         /*{
