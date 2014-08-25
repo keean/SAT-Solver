@@ -5,5 +5,5 @@ Implementations of algorithms A, B and D from Knuth pre-fascicle 6a. Algorithm D
 
 remember to checkout the submodule with the following commands from the root of the project after cloning:
 
-git submodule init
-git submodule update
+*git submodule init*
+*git submodule update*
